@@ -3,16 +3,17 @@ SearchView = Backbone.View.extend({
 	initialize: function(){
 		this.render();
 	},
+	variables: {
+			searchLabel: "My Search",
+			searchButton: '"caca"'
+		},
 	render: function(){
 		//Compila el template usando Underscore.
 		var template = _.template($("#search_template").html());
 		//Paso variables que reemplazan con el template de Underscore.
-		var variables = {
-			searchLabel: "My Search",
-		};
-		var html = template(variables);
+		var html = template(this.variables);
 		//Carga el HTML compilado en "el" de Backbone.
-		this.$el.append(html);
+		this.$el.html(html);
 	},
 	events: {
 		//Eventos de la forma "event selector":"callback".
@@ -21,6 +22,8 @@ SearchView = Backbone.View.extend({
 
 	doSearch: function(){
 		alert("Search for " + $("#search_input").val());
+		this.variables.searchButton = '"' + $('#search_input').val() + '"';
+		this.render();
 	}
 });
 
